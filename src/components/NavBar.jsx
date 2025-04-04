@@ -32,7 +32,7 @@ function NavBar ({ favourites, setFavourites }) {
       <div>
         <Link to="/" className="flex items-center">
           <img
-            src="public/vite.sng"
+            src="ArtisphereMinimalistic.png"
             alt="Artisphere Logo"
             className="h-auto w-45"
           />
