@@ -31,10 +31,16 @@ function GalleryDetails({ selectedGallery, favourites, setFavourites }) {
   }
 
   const handleAddToFavorites = (selectedGallery) => {
-    if (selectedGallery && !favourites.find((g) => g.galleryId === selectedGallery.galleryId)) {
-      setFavourites([...favourites, selectedGallery]);
-    }
-  }
+    setFavourites((prevFavourites) => {
+      if (
+        selectedGallery &&
+        !prevFavourites.find((g) => g.galleryId === selectedGallery.galleryId)
+      ) {
+        return [...prevFavourites, selectedGallery];
+      }
+      return prevFavourites;
+    });
+  };
 
   const {
     galleryName,
