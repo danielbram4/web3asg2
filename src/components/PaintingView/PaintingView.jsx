@@ -18,10 +18,10 @@ function PaintingView({ paintings, artists, galleries, favourites, setFavourites
         case "title":
           return p.title.toLowerCase().includes(filterValue.toLowerCase());
         case "artist":
-          // Suppose painting has an artistId and we have an artists array
-          // We can match the artist’s name or ID
           const artist = artists.find((a) => a.artistId === p.artistId);
-          return artist && artist.firstName.toLowerCase().includes(filterValue.toLowerCase());
+          if (!artist) return false;
+          const fullName = `${artist.firstName} ${artist.lastName}`.toLowerCase();
+          return fullName.includes(filterValue.toLowerCase());
         case "gallery":
           // Suppose painting has a galleryId and we have a galleries array
           const gallery = galleries.find((g) => g.galleryId === p.galleryId);

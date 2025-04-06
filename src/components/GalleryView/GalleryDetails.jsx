@@ -34,10 +34,12 @@ function GalleryDetails({ selectedGallery, favourites, setFavourites }) {
     setFavourites((prevFavourites) => {
       if (
         selectedGallery &&
-        !prevFavourites.find((g) => g.galleryId === selectedGallery.galleryId)
+        !prevFavourites.find((g) => g.galleryId === selectedGallery.galleryId && !g.paintingId)
       ) {
+        console.log('Adding to favorites:', selectedGallery);
         return [...prevFavourites, selectedGallery];
       }
+      console.log('Already in favorites:', selectedGallery);
       return prevFavourites;
     });
   };
@@ -55,6 +57,7 @@ function GalleryDetails({ selectedGallery, favourites, setFavourites }) {
 
   return (
     <section className="p-6 flex flex-col gap-6 h-full overflow-auto bg-gradient-to-br from-gray-700 to-gray-800 rounded-xl shadow-lg">
+      <div className="flex-grow overflow-y-auto p-6 gap-6">
       <header className="pb-3 border-b border-gray-600">
         <h2 className="text-4xl font-bold text-white tracking-wide">{galleryName}</h2>
         {galleryNativeName && (
@@ -92,7 +95,7 @@ function GalleryDetails({ selectedGallery, favourites, setFavourites }) {
 
       <button
         type="button"
-        className="w-max px-6 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg shadow-md transition duration-200 transform hover:scale-105 active:scale-95"
+        className="w-max px-6 py-2 mt-6 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg shadow-md transition duration-200 transform hover:scale-105 active:scale-95"
         onClick={() => {
           handleAddToFavorites(selectedGallery);
         }}
@@ -100,7 +103,7 @@ function GalleryDetails({ selectedGallery, favourites, setFavourites }) {
         ❤️ Add to Favorites
       </button>
 
-      <div className="h-[350px] w-full rounded-xl shadow-md overflow-hidden border-4 border-gray-600">
+      <div className="h-[350px] w-full mt-6 rounded-xl shadow-md overflow-hidden border-4 border-gray-600">
         <MapContainer
           center={[latitude, longitude]}
           zoom={14}
@@ -113,12 +116,14 @@ function GalleryDetails({ selectedGallery, favourites, setFavourites }) {
           />
           <Marker position={[latitude, longitude]}>
             <Popup>
-              <strong>{galleryName}</strong><br />
+              <strong>{galleryName}</strong>
+              <br />
               {galleryAddress}, {galleryCity}
             </Popup>
           </Marker>
           <UpdateMapCenter latitude={latitude} longitude={longitude} />
         </MapContainer>
+      </div>
       </div>
     </section>
   );

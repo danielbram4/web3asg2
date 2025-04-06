@@ -50,13 +50,6 @@ function PaintingsList({ paintings, artists, favourites, setFavourites }) {
     setSelectedPainting(null);
   };
 
-  // const handleAddToFavorites = (paintingId) => {
-  //   const painting = paintings.find(p => p.paintingId === paintingId);
-  //   if (painting && !favourites.find(p => p.paintingId === paintingId)) {
-  //     setFavourites([...favourites, painting]);
-  //   }
-  // };
-
   const handleAddToFavorites = (paintingId) => {
     const painting = paintings.find(p => p.paintingId === paintingId);
     setFavourites((prevFavourites) => {

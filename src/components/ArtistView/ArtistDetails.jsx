@@ -11,9 +11,17 @@ function ArtistDetails({ selectedArtist, favourites, setFavourites }) {
     }
 
     const handleAddToFavorites = (selectedArtist) => {
-        if(selectedArtist && !favourites.find((a) => a.artistId === selectedArtist.artistId)) {
-            setFavourites([...favourites, selectedArtist]);
+      setFavourites((prevFavourites) => {
+        if (
+          selectedArtist &&
+          !prevFavourites.find((a) => a.artistId === selectedArtist.artistId && !a.paintingId)
+        ) {
+          console.log('Adding to favorites:', selectedArtist);
+          return [...prevFavourites, selectedArtist];
         }
+        console.log('Already in favorites:', selectedArtist);
+        return prevFavourites;
+      });
     }
   
     // Destructure properties; adjust field names as needed
